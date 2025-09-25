@@ -1,0 +1,246 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Orbitron", sans-serif;
+  color: #ffffff;
+  background: radial-gradient(circle at center, #06101a, #000000);
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* NAV SUPERIOR */
+.nav-superior {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(5, 15, 30, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 15px 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 217, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+}
+
+.nav-superior ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+.nav-superior a {
+  text-decoration: none;
+  color: #9ecfff;
+  font-weight: bold;
+  letter-spacing: 2px;
+  transition: 0.3s;
+  text-shadow: 0 0 8px rgba(0, 217, 255, 0.6);
+}
+
+.nav-superior a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 12px #00d9ff, 0 0 20px #00d9ff;
+}
+
+/* CONTENIDO PRINCIPAL */
+main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  padding: 100px;
+}
+
+/* MENÚ IZQUIERDA */
+.menu-central {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.menu-central a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 22px;
+  padding: 12px 20px;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-central a:hover {
+  border-left: 4px solid #00d9ff;
+  color: #00d9ff;
+  background: rgba(0, 217, 255, 0.1);
+  box-shadow: inset 0 0 12px rgba(0, 217, 255, 0.6);
+}
+
+/* PANEL DE IMAGEN DERECHA */
+.panel-imagen {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid rgba(0, 217, 255, 0.4);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+}
+
+.panel-imagen img {
+  width: 280px;
+  border: 2px solid #00d9ff;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.7);
+}
+
+/* ICONO ABAJO IZQUIERDA */
+footer {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(5, 15, 30, 0.6);
+  border: 1px solid rgba(0, 217, 255, 0.4);
+  padding: 10px 15px;
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.3);
+}
+
+.icono-parpadeante {
+  width: 60px;
+  height: 60px;
+  animation: parpadeo 1.5s infinite alternate;
+  filter: drop-shadow(0 0 8px #00d9ff);
+}
+
+@keyframes parpadeo {
+  from { opacity: 1; filter: drop-shadow(0 0 8px #00d9ff); }
+  to { opacity: 0.6; filter: drop-shadow(0 0 15px #00d9ff); }
+}
+body {
+  background: url("wallpaperbetter.com_2560x1440.jpg") no-repeat center center fixed;
+  background-size: cover;   /* Ocupa todo el espacio */
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 10, 20, 0.5); /* filtro azul oscuro */
+  z-index: -1;
+}
+.menu {
+  display: flex;
+  justify-content: center;
+  background: transparent; /* para que se vea el fondo */
+  padding: 20px;
+}
+
+.menu ul {
+  list-style: none;
+  display: flex;
+  gap: 50px; /* separación entre opciones */
+  margin: 0;
+  padding: 0;
+}
+
+.menu ul li a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #ffffff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.menu ul li.active a {
+  padding: 5px 15px;
+  border: 2px solid #00f0ff; /* borde brillante azul */
+  border-radius: 4px;
+  box-shadow: 0 0 10px #00f0ff;
+}
+
+.menu ul li a:hover {
+  color: #00f0ff; /* efecto hover */
+}
+html {
+  scroll-behavior: smooth;
+}
+/* SECCIÓN REGISTRO */
+.registro-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 20px;
+}
+
+.registro-section {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #00d9ff;
+  padding: 25px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+}
+
+.registro-section h2 {
+  color: #00f0ff;
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px #00f0ff;
+}
+
+.registro-section form label {
+  display: block;
+  margin-top: 10px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.registro-section form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #00d9ff;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+}
+
+.registro-section form button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 6px;
+  background: #00d9ff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.registro-section form button:hover {
+  background: #00f0ff;
+}
+
+#mensaje {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.registro-section ul {
+  margin-top: 10px;
+  padding-left: 20px;
+  color: #ffffff;
+}

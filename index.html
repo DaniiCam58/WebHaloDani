@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Página - Halo Style</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAV SUPERIOR -->
+  <nav class="menu">
+  <ul>
+    <li class="active"><a href="index.html">INICIO</a></li>
+    <li><a href="sobre-mi.html">SOBRE MI</a></li>
+    <li><a href="calculadora.html">CALCULADORA</a></li>
+    <li><a href="ahorcado.html">JUEGO</a></li>
+    <li><a href="https://halo.fandom.com/wiki/Halo_Franchise">SOBRE VIDEOJUEGOS</a></li>
+    <li><a href="contactanos.html">REGISTRO</a></li>
+    <li><a href="login.html">LOGIN</a></li>
+  </ul>
+</nav>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main>
+    <!-- MENÚ LATERAL (tipo Campaign, Multiplayer, etc.) -->
+    <div class="menu-central">
+      <a href="index.html">CAMPAÑA</a>
+      <a href="ahorcado.html">MULTIJUGADOR</a>
+      <a href="calculadora.html">ACADEMIA</a>
+      <a href="juego.html">CREACIÓN PERSONALIZADA</a>
+      <link rel="stylesheet" href=""><a href="https://halo.fandom.com/es/wiki/Modo_Forge">FORGE</a>
+    </div>
+
+    <!-- PANEL DE IMAGEN A LA DERECHA -->
+    <div class="panel-imagen">
+      <img src="ONI CLASSIFIED.jpg" alt="Imagen destacada">
+      <p>Este es un proyecto personal que explora la creación web. Inspirado en el universo de Halo...</p>
+    </div>
+  </main>
+<!-- SECCIÓN CALCULADORA -->
+<section id="community" class="calculator-section">
+  <h2 class="calc-title">Covenant Calculator</h2>
+
+  <!-- Pantalla -->
+  <div class="calc-display" id="display">0</div>
+
+  <!-- Botones -->
+  <div class="calc-buttons">
+    <button onclick="appendValue('7')">7</button>
+    <button onclick="appendValue('8')">8</button>
+    <button onclick="appendValue('9')">9</button>
+    <button class="action" onclick="deleteLast()">DEL</button>
+
+    <button onclick="appendValue('4')">4</button>
+    <button onclick="appendValue('5')">5</button>
+    <button onclick="appendValue('6')">6</button>
+    <button class="operator" onclick="appendValue('+')">+</button>
+
+    <button onclick="appendValue('1')">1</button>
+    <button onclick="appendValue('2')">2</button>
+    <button onclick="appendValue('3')">3</button>
+    <button class="operator" onclick="appendValue('-')">-</button>
+
+    <button onclick="appendValue('.')">.</button>
+    <button onclick="appendValue('0')">0</button>
+    <button class="operator" onclick="appendValue('/')">/</button>
+    <button class="operator" onclick="appendValue('*')">*</button>
+
+    <button class="action reset" onclick="resetCalc()">RESET</button>
+    <button class="equal" onclick="calculate()">=</button>
+  </div>
+
+  <!-- Historial -->
+  <div class="history">
+    <h3>Resultados</h3>
+    <ul id="history-list"></ul>
+  </div>
+</section>
+
+  <!-- ICONO ABAJO IZQUIERDA -->
+  <footer>
+    <img src="reach icon.png" alt="Icono" class="icono-parpadeante">
+    <span>Mi GamerTag</span>
+  </footer>
+
+</body>
+</html>

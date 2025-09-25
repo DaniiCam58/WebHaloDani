@@ -1,0 +1,149 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Orbitron", sans-serif;
+  color: #ffffff;
+  background: url("wallpaperbetter.com_2560x1440.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 10, 20, 0.5); /* filtro azul oscuro */
+  z-index: -1;
+}
+
+/* NAV SUPERIOR */
+.menu {
+  display: flex;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+}
+
+.menu ul {
+  list-style: none;
+  display: flex;
+  gap: 50px;
+  margin: 0;
+  padding: 0;
+}
+
+.menu ul li a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #ffffff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.menu ul li.active a {
+  padding: 5px 15px;
+  border: 2px solid #00f0ff; 
+  border-radius: 4px;
+  box-shadow: 0 0 10px #00f0ff;
+}
+
+.menu ul li a:hover {
+  color: #00f0ff; 
+}
+
+/* CONTENEDOR PRINCIPAL DE SECCIONES */
+.main-secciones {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 150px 20px 50px 20px; /* padding superior para que no tape el nav */
+  gap: 80px;
+}
+
+/* SECCIÓN SOBRE MÍ */
+.sobre-mi-section {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #00d9ff;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 650px;
+  width: 100%;
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+}
+
+.sobre-mi-section h2 {
+  color: #00f0ff;
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px #00f0ff;
+}
+
+.sobre-mi-section p {
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.intereses-lista {
+  list-style: none;
+  padding-left: 0;
+}
+
+.intereses-lista li {
+  background: rgba(0, 217, 255, 0.1);
+  border-left: 4px solid #00f0ff;
+  padding: 12px 15px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  color: #ffffff;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.intereses-lista li:hover {
+  background: rgba(0, 217, 255, 0.3);
+  box-shadow: 0 0 12px #00f0ff;
+  transform: translateX(5px);
+}
+
+/* FOOTER */
+footer {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(5, 15, 30, 0.6);
+  border: 1px solid rgba(0, 217, 255, 0.4);
+  padding: 10px 15px;
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.3);
+}
+
+.icono-parpadeante {
+  width: 60px;
+  height: 60px;
+  animation: parpadeo 1.5s infinite alternate;
+  filter: drop-shadow(0 0 8px #00d9ff);
+}
+
+@keyframes parpadeo {
+  from { opacity: 1; filter: drop-shadow(0 0 8px #00d9ff); }
+  to { opacity: 0.6; filter: drop-shadow(0 0 15px #00d9ff); }
+}

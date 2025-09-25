@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="game.js">
+    <nav class="menu">
+  <ul>
+    <li><a href="index.html">INICIO</a></li>
+    <li><a href="sobre-mi.html">SOBRE MI</a></li>
+    <li><a href="calculadora.html">CALCULADORA</a></li>
+    <li class="active"><a href="juego.html">JUEGO</a></li>
+    <li><a href="https://halo.fandom.com/wiki/Halo_Franchise">SOBRE VIDEOJUEGOS</a></li>
+    <li><a href="contactanos.html">REGISTRO</a></li>
+    <li><a href="login.html">LOGIN</a></li>
+  </ul>
+</nav>
+
+  <meta charset="UTF-8">
+  <title>Halo Spartan Mini-Game</title>
+  <style>
+    body {
+      background: #0a0a0a;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    canvas {
+      border: 2px solid cyan;
+      background: linear-gradient(to bottom, #0f0f4d, #1a1a1a);
+      display: block;
+      margin: 0 auto;
+    }
+    #ui {
+      margin-top: 10px;
+    }
+    button {
+      padding: 8px 16px;
+      background: cyan;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #00ffff99;
+    }
+  </style>
+</head>
+<body>
+
+  <h1> Mini-Game</h1>
+  <canvas id="gameCanvas" width="800" height="400"></canvas>
+  
+        <div id="ui">
+            <p>Nivel: <span id="nivel">1</span> | Puntaje: <span id="score">0</span></p>
+            <p>Controles: ⬅ Izquierda | ➡ Derecha | ⬆ Saltar</p>
+            <button id="resetBtn">🔄 Reiniciar</button>
+            <button id="pauseBtn">⏸️ Pausar</button>
+        </div>
+
+        <script src=""></script>
+        
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const scoreEl = document.getElementById("score");
+    const nivelEl = document.getElementById("nivel");
+
+    // Jugador
+    const player = {
+      x: 50, y: 300, width: 30, height: 40,
+      vx: 0, vy: 0,
+      speed: 3, jump: -10,
+      grounded: false
+    };
+
+    // Físicas
+    const gravity = 0.5;
+
+    // Variables globales
+    let score = 0;
+    let nivel = 1;
+    let obstaculos = [];
+    let enemigos = [];
+    let meta = {};
+
+    // Niveles
+    const niveles = {
+      1: {
+        obstaculos: [
+          {x: 200, y: 350, width: 50, height: 50},
+          {x: 400, y: 350, width: 50, height: 50},
+          {x: 600, y: 350, width: 50, height: 50}
+        ],
+        enemigos: [
+          {x: 300, y: 360, width: 30, height: 30, dir: 1, speed: 2}
+        ],
+        meta: {x: 750, y: 340, width: 30, height: 60}
+      },
+      2: {
+        obstaculos: [
+          {x: 150, y: 350, width: 50, height: 50},
+          {x: 300, y: 300, width: 50, height: 100}, 
+          {x: 500, y: 350, width: 50, height: 50},
+          {x: 650, y: 350, width: 50, height: 50}
+        ],
+        enemigos: [
+          {x: 250, y: 360, width: 30, height: 30, dir: 1, speed: 2},
+          {x: 550, y: 360, width: 30, height: 30, dir: -1, speed: 3}
+        ],
+        meta: {x: 750, y: 340, width: 30, height: 60}
+      },
+      3: {
+        obstaculos: [
+          {x: 100, y: 350, width: 50, height: 50},
+          {x: 250, y: 320, width: 50, height: 80},
+          {x: 400, y: 300, width: 50, height: 100},
+          {x: 550, y: 350, width: 50, height: 50},
+          {x: 700, y: 350, width: 50, height: 50}
+        ],
+        enemigos: [
+          {x: 200, y: 360, width: 30, height: 30, dir: 1, speed: 2},
+          {x: 350, y: 360, width: 30, height: 30, dir: -1, speed: 3},
+          {x: 600, y: 360, width: 30, height: 30, dir: 1, speed: 4}
+        ],
+        meta: {x: 750, y: 340, width: 30, height: 60}
+      }
+    };
+
+    // Controles
+    const keys = {};
+    document.addEventListener("keydown", e => keys[e.code] = true);
+    document.addEventListener("keyup", e => keys[e.code] = false);
+
+    // Función colisión rectángulos
+    function colisionRect(a, b) {
+      return (
+        a.x < b.x + b.width &&
+        a.x + a.width > b.x &&
+        a.y < b.y + b.height &&
+        a.y + a.height > b.y
+      );
+    }
+
+    // Reinicio
+    function reiniciarJuego() {
+      console.log ('clic reinicio')
+      player.x = 50; player.y = 300;
+      player.vx = 0; player.vy = 0;
+      nivel = 1;
+      cargarNivel(nivel);
+      score = 0;
+      scoreEl.textContent = score;
+    }
+
+    // Cargar un nivel
+    function cargarNivel(n) {
+      obstaculos = JSON.parse(JSON.stringify(niveles[n].obstaculos));
+      enemigos = JSON.parse(JSON.stringify(niveles[n].enemigos));
+      meta = {...niveles[n].meta};
+      nivelEl.textContent = nivel;
+    }
+
+    // Bucle del juego
+    function update() {
+      // Movimiento horizontal
+      if (keys["ArrowLeft"]) player.vx = -player.speed;
+      else if (keys["ArrowRight"]) player.vx = player.speed;
+      else player.vx = 0;
+
+      // Saltar
+      if (keys["ArrowUp"] && player.grounded) {
+        player.vy = player.jump;
+        player.grounded = false;
+      }
+
+      // Gravedad
+      player.vy += gravity;
+      player.x += player.vx;
+      player.y += player.vy;
+
+      // Piso
+      if (player.y + player.height > canvas.height) {
+        player.y = canvas.height - player.height;
+        player.vy = 0;
+        player.grounded = true;
+      }
+      
+      // Colisiones con obstáculos
+      obstaculos.forEach(obs => {
+        if (colisionRect(player, obs)) {
+          if (player.vy > 0 && player.y + player.height <= obs.y + player.vy) {
+            player.y = obs.y - player.height;
+            player.vy = 0;
+            player.grounded = true;
+            score += 5;
+          } else if (player.vx > 0) {
+            player.x = obs.x - player.width;
+          } else if (player.vx < 0) {
+            player.x = obs.x + obs.width;
+          }
+        }
+      });
+
+      // Movimiento de enemigos
+      enemigos.forEach(enemigo => {
+        enemigo.x += enemigo.dir * enemigo.speed;
+        if (enemigo.x < 50 || enemigo.x > 700) enemigo.dir *= -1;
+      });
+
+      // Colisiones con enemigos
+      enemigos.forEach((enemigo, i) => {
+        if (colisionRect(player, enemigo)) {
+          if (player.vy > 0 && player.y + player.height <= enemigo.y + 10) {
+            score += 50;
+            enemigos.splice(i, 1);
+            player.vy = player.jump / 2;
+          } else {
+            alert("💀 Un enemigo te derrotó! Puntaje: " + score);
+            reiniciarJuego();
+          }
+        }
+      });
+
+      // Colisión con meta
+      if (colisionRect(player, meta)) {
+        if (nivel < 3) {
+          nivel++;
+          alert("✅ Nivel " + (nivel - 1) + " completado! Avanzas al nivel " + nivel);
+          cargarNivel(nivel);
+          player.x = 50; player.y = 300;
+          player.vx = 0; player.vy = 0;
+        } else {
+          alert("🏆 ¡Felicitaciones! Completaste el juego con un puntaje final de: " + score);
+          reiniciarJuego();
+        }
+      }
+
+      // Dibujar
+      draw();
+
+      // Mostrar puntaje
+      scoreEl.textContent = score;
+
+      requestAnimationFrame(update);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Jugador
+      ctx.fillStyle = "cyan";
+      ctx.fillRect(player.x, player.y, player.width, player.height);
+
+      // Obstáculos
+      ctx.fillStyle = "gray";
+      obstaculos.forEach(obs => ctx.fillRect(obs.x, obs.y, obs.width, obs.height));
+
+      // Enemigos
+      ctx.fillStyle = "red";
+      enemigos.forEach(enemigo => ctx.fillRect(enemigo.x, enemigo.y, enemigo.width, enemigo.height));
+
+      // Meta
+      ctx.fillStyle = "lime";
+      ctx.fillRect(meta.x, meta.y, meta.width, meta.height);
+    }
+    
+    // Iniciar
+    reiniciarJuego();
+    update();
+    let pausado = false;
+
+// Botón de pausa
+document.getElementById("pauseBtn").addEventListener("click", () => {
+  pausado = !pausado;
+  document.getElementById("pauseBtn").textContent = pausado ? "▶️ Reanudar" : "⏸️ Pausar";
+  if (!pausado) update(); // Reanudar el bucle si se despausa
+});
+
+// Botón de reinicio
+document.getElementById("resetBtn").addEventListener("click", () => {
+  pausado = false;
+  document.getElementById("pauseBtn").textContent = "⏸️ Pausar";
+  reiniciarJuego();
+});
+
+  </script>
+        
+</body>
+</html>
+
+

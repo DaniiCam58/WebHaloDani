@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="ahorcado.css">
+</head>
+<body>
+  <!-- NAV SUPERIOR -->
+  <nav class="menu">
+  <ul>
+    <li class="active"><a href="index.html">INICIO</a></li>
+    <li><a href="sobre-mi.html">SOBRE MI</a></li>
+    <li><a href="calculadora.html">CALCULADORA</a></li>
+    <li><a href="ahorcado.html">JUEGO</a></li>
+    <li><a href="https://halo.fandom.com/wiki/Halo_Franchise">SOBRE VIDEOJUEGOS</a></li>
+    <li><a href="contactanos.html">REGISTRO</a></li>
+    <li><a href="login.html">LOGIN</a></li>
+
+  </ul>
+</nav>
+</body>
+
+<body class="cuerpo-game">
+    <section class="game-container">
+        <header class="game-header">
+            <h1>Juego Del Ahorcado</h1>
+            <article class="score-container">
+                <article class="score-item">
+                    <span class="score-label">
+                        Puntaje Total:
+                    </span>
+                    <span id="totalScore" class="total-score">
+                        0
+                    </span>
+
+                </article>
+                <article class="score-item">
+                    <span class="score-label">
+                        Categoria Actual
+                    </span>
+                    <span id="categoryScore" class="total-score">
+                        0
+                    </span>
+
+                </article>
+            </article>
+
+        </header>
+
+        <!-- selector de categoria -->
+        <div class="category-selector">
+            <h3>Selecciona una categoria:</h3>
+            <div id="categoryButtons" class="category.Buttons">
+                <!-- se generan dinamicamente -->
+
+            </div>
+        </div>
+
+        <!-- area de juego -->
+        <div class="game-area">
+            <!-- informacion de la palabra -->
+            <div class="word-info">
+                <div class="current-category">
+                    <span id="currentCategoryIcon">🎯</span>
+                    <span id="currentCategoryName">Selecciona Una Categoria</span>
+                </div>
+                <div id="wordDisplay" class="word-display">
+                _ _ _ _ _ _ _ 
+                </div>
+            </div>
+            
+            <!-- dibujo del ahorcadp -->
+             <div class="hangman-container">
+                <svg id="hangmanSvg" width="200" height="250" viewBox="0 0 200 250">
+                    <!-- Base -->
+                    <line x1="10" y1="230" x2="150" y2="230" stroke="#8B4513" stroke-width="4"/>
+                    <!-- Poste vertical -->
+                    <line x1="30" y1="230" x2="30" y2="20" stroke="#8B4513" stroke-width="4"/>
+                    <!-- Poste horizontal -->
+                    <line x1="30" y1="20" x2="120" y2="20" stroke="#8B4513" stroke-width="4"/>
+                    <!-- Cuerda -->
+                    <line x1="120" y1="20" x2="120" y2="50" stroke="#8B4513" stroke-width="3"/>
+                    
+                    <!-- Partes del ahorcado (inicialmente ocultas) -->
+                    <!-- Cabeza -->
+                    <circle id="head" cx="120" cy="65" r="15" stroke="#000" stroke-width="3" fill="none" style="display: none"/>
+                    <!-- Cuerpo -->
+                    <line id="body" x1="120" y1="80" x2="120" y2="160" stroke="#000" stroke-width="3" style="display: none"/>
+                    <!-- Brazo izquierdo -->
+                    <line id="leftArm" x1="120" y1="100" x2="90" y2="130" stroke="#000" stroke-width="3" style="display: none"/>
+                    <!-- Brazo derecho -->
+                    <line id="rightArm" x1="120" y1="100" x2="150" y2="130" stroke="#000" stroke-width="3" style="display: none"/>
+                    <!-- Pierna izquierda -->
+                    <line id="leftLeg" x1="120" y1="160" x2="90" y2="200" stroke="#000" stroke-width="3" style="display: none"/>
+                    <!-- Pierna derecha -->
+                    <line id="rightLeg" x1="120" y1="160" x2="150" y2="200" stroke="#000" stroke-width="3" style="display: none"/>
+                </svg>
+                
+                <div class="attempts-counter">
+                    <span>Intentos restantes: </span>
+                    <span id="attemptsLeft">6</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- controles del juego -->
+             <div class="game-controls">
+                <!-- area de pistas -->
+                 <div class="hint-area">
+
+                     <button id="hintButton" class="hint-button" disabled>
+                     💡 Mostrar pista (-25 puntos) 
+                     </button>
+                     <div id="hintDisplay" class="hintDisplay">   
+                     </div>
+                 </div>
+
+                 <!-- teclado virtual -->
+                 <div class="keyboard">
+                <div class="keyboard-row">
+                    <button class="key" data-letter="Q">Q</button>
+                    <button class="key" data-letter="W">W</button>
+                    <button class="key" data-letter="E">E</button>
+                    <button class="key" data-letter="R">R</button>
+                    <button class="key" data-letter="T">T</button>
+                    <button class="key" data-letter="Y">Y</button>
+                    <button class="key" data-letter="U">U</button>
+                    <button class="key" data-letter="I">I</button>
+                    <button class="key" data-letter="O">O</button>
+                    <button class="key" data-letter="P">P</button>
+                </div>
+                <div class="keyboard-row">
+                    <button class="key" data-letter="A">A</button>
+                    <button class="key" data-letter="S">S</button>
+                    <button class="key" data-letter="D">D</button>
+                    <button class="key" data-letter="F">F</button>
+                    <button class="key" data-letter="G">G</button>
+                    <button class="key" data-letter="H">H</button>
+                    <button class="key" data-letter="J">J</button>
+                    <button class="key" data-letter="K">K</button>
+                    <button class="key" data-letter="L">L</button>
+                    <button class="key" data-letter="Ñ">Ñ</button>
+                </div>
+                <div class="keyboard-row">
+                    <button class="key" data-letter="Z">Z</button>
+                    <button class="key" data-letter="X">X</button>
+                    <button class="key" data-letter="C">C</button>
+                    <button class="key" data-letter="V">V</button>
+                    <button class="key" data-letter="B">B</button>
+                    <button class="key" data-letter="N">N</button>
+                    <button class="key" data-letter="M">M</button>
+                </div>
+            </div> 
+            <!-- botones de accion -->
+            <div class="action-buttons">
+                <button id="newGameButton" class="action-button">
+                    🔃Nueva Palabra
+                </button>
+                <button id="resetScoreButton" class="action-button secundary">
+                    🗑 Reiniciar Puntajes
+                </button>
+                
+            </div>                 
+             </div>
+
+             <!-- modal de resultados -->
+              <div id="resultModal" class="modal">
+                <div class="modal-content">
+                    <h2 id="resultTitle" class="resultTitle">!Felicitaciones!</h2>
+                    <p id="resultMenssage" class="resultMenssage"> Has ganado esta ronda</p>
+                    <div id="resultStats" class="result-stats"></div>
+                    <button id="continueButton" class="action-button">Continuar</button>
+
+                </div>
+
+              </div>
+
+              <!-- estadisticas por categoria -->
+               <div class="stats-container">
+                <h3 class="title-stats">📊 Estadisticas por Categoria</h3>
+                <div id="categoryStats" class="category-stats">
+                    <!-- se genera dinamicamente -->
+                </div>
+               </div>
+              
+             </section>
+
+            <script src="ahorcado.js"></script>
+             <script src="data.js"></script>
+             
+
+</body>
+
+</html>
